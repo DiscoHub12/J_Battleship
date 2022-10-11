@@ -62,20 +62,6 @@ public class PlayerTest {
     }
 
     /**
-     * This method tests the correct functioning of
-     * the player's Battlefield return.
-     */
-    @Test
-    public void testGetBattlefield(){
-        addPlayerOneShip();
-        Player one = new Player("Alessio", play1, 20, color);
-        Battlefield battle = new Battlefield(20, one.shipPlayer(), color);
-        assertEquals(battle, one.getBattlefield());
-        DefaultBattlePlane def = new DefaultBattlePlane(one);
-        assertEquals(def, one.getDefaultBattlePlane());
-    }
-
-    /**
      * This method tests the correct functioning
      * concerning the removal of a specific Ship
      * owned by specific player.
