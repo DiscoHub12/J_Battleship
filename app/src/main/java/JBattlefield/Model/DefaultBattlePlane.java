@@ -48,12 +48,9 @@ public class DefaultBattlePlane implements Plane {
 
     @Override
     public void addMarker(Coordinate tmp, boolean result) {
-        for (Ship s : listDeadShip) {
-            for (Coordinate coord : s.allShipPosition())
-                if (tmp.equals(coord))
-                    throw new IllegalArgumentException("Ship already sunk in that position.");
-            this.hitPosition.put(tmp, result);
-        }
+        if (this.hitPosition.containsKey(tmp))
+            throw new IllegalArgumentException("Position already hit.");
+        this.hitPosition.put(tmp, result);
     }
 
     @Override
