@@ -5,18 +5,56 @@ import java.util.Set;
 
 public class Player implements Gamer {
 
+     /**
+     * This attribute indicates a unique
+     * Player name.
+     */
     private final String name;
 
+    /**
+     * This Collections (Set) indicates
+     * the Ships that this particular Player
+     * owns.
+     */
     private final Set<Ship> ships;
 
+    /**
+     * This attribute indicates a
+     * counter that will be decremented each time
+     * this Player's Ship is sunk.
+     */
     private int count;
 
+    /**
+     * This attribute indicates a unique Battlefield
+     * for this Player.
+     */
     private final Battlefield battlefield;
 
+    /**
+     * This attribute indicates a unique
+     * DefaultBattlePlane for this Player.
+     */
     private final DefaultBattlePlane defaultBattle;
 
+    /**
+     * This attribute indicates the actions a
+     * player can perform, i.e hitting a
+     * certain position on a battlefield of his
+     * opponent.
+     */
     private final Action action;
 
+    /**
+     * Constructor that allows you to create a Player,
+     * who will have certain ships, a base indicating the
+     * base of the two tables owned by the Player, and color
+     * (RGB) for the base.
+     * @param name the name of this Player.
+     * @param ships the Ships that this Player have.
+     * @param base the length for the Battlefield and DefaultBattlePlane.
+     * @param color the color for the Battlefield and DefaultBattlePlane.
+     */
     public Player(String name, Set<Ship> ships, int base, RGBColor color) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(ships);
@@ -27,7 +65,7 @@ public class Player implements Gamer {
         this.ships = ships;
         this.battlefield = new Battlefield(base, ships, color);
         this.defaultBattle = new DefaultBattlePlane(this);
-        this.count = 0;
+        this.count = this.ships.size();
         this.action = new Action(this);
     }
 
@@ -52,16 +90,6 @@ public class Player implements Gamer {
     }
 
     @Override
-    public void addShip(Ship ship) {
-        Objects.requireNonNull(ship);
-        if (ships.contains(ship))
-            throw new IllegalArgumentException("Ship already exist.");
-        if (count >= 6)
-            throw new IllegalArgumentException("You cannot add another ship inside.");
-        this.ships.add(ship);
-    }
-
-    @Override
     public void removeShip(Ship ship) {
         Objects.requireNonNull(ship);
         if (!containsShip(ship))
@@ -77,6 +105,12 @@ public class Player implements Gamer {
         this.action.hitPosition(player, coordinate);
     }
 
+    /**
+     * This method checks whether a given Ship
+     * passed between parameters is present or not.
+     * @param ship the Ship to checks.
+     * @return true if present, false otherwise.
+     */
     public boolean containsShip(Ship ship) {
         Objects.requireNonNull(ship);
         for (Ship s : this.ships) {
