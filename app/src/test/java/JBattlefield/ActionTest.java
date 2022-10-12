@@ -131,4 +131,88 @@ public class ActionTest {
         assertFalse(one.getBattlefield().containsShip(s6));
         assertFalse(one.containsShip(s6));
     }
+    
+     @Test
+    public void testWin(){
+        addPlayerOneShip();
+        addPlayerTwoShip();
+        Player one = new Player("Alessio", play1, 20, color);
+        Player two = new Player("Luca", play2, 20, color);
+        //hit and sunk Ship SP1
+        assertTrue(two.getBattlefield().containsShip(sp1));
+        Coordinate c1 = new Coordinate(3, 4);
+        one.hitPosition(two, c1);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c1));
+        Coordinate c2 = new Coordinate(3, 5);
+        one.hitPosition(two, c2);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c2));
+        Coordinate c3 = new Coordinate(3, 6);
+        one.hitPosition(two, c3);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c3));
+        assertFalse(two.getBattlefield().containsShip(sp1));
+        assertFalse(two.containsShip(sp1));
+        //hit and sunk Ship SP2
+        assertTrue(two.getBattlefield().containsShip(sp2));
+        Coordinate c4 = new Coordinate(3,11);
+        one.hitPosition(two, c4);
+        Coordinate c5 = new Coordinate(3,12);
+        one.hitPosition(two, c5);
+        assertFalse(two.getBattlefield().containsShip(sp2));
+        assertFalse(two.containsShip(sp2));
+        //hit and sunk Ship SP3
+        assertTrue(two.getBattlefield().containsShip(sp3));
+        Coordinate c6 = new Coordinate(8,9);
+        one.hitPosition(two, c6);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c6));
+        Coordinate c7 = new Coordinate(7,9);
+        one.hitPosition(two, c7);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c7));
+        Coordinate c8 = new Coordinate(6,9);
+        one.hitPosition(two, c8);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c8));
+        assertFalse(two.getBattlefield().containsShip(sp3));
+        assertFalse(two.containsShip(sp3));
+        //hit and sunk Ship SP4
+        assertTrue(two.getBattlefield().containsShip(sp4));
+        Coordinate c9 = new Coordinate(10,2);
+        one.hitPosition(two, c9);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c9));
+        Coordinate c10 = new Coordinate(10,3);
+        one.hitPosition(two, c10);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c10));
+        Coordinate c11 = new Coordinate(10,4);
+        one.hitPosition(two, c11);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c11));
+        assertFalse(two.getBattlefield().containsShip(sp4));
+        assertFalse(two.containsShip(sp4));
+        //hit and sunk Ship SP5
+        assertTrue(two.getBattlefield().containsShip(sp5));
+        Coordinate c12 = new Coordinate(11,14);
+        one.hitPosition(two, c12);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c12));
+        Coordinate c13 = new Coordinate(11,13);
+        one.hitPosition(two, c13);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c13));
+        Coordinate c14 = new Coordinate(11,12);
+        one.hitPosition(two, c14);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c14));
+        assertFalse(two.getBattlefield().containsShip(sp5));
+        assertFalse(two.containsShip(sp5));
+        //hit and sunk Ship SP6
+        assertTrue(two.getBattlefield().containsShip(sp6));
+        Coordinate c15 = new Coordinate(12,9);
+        one.hitPosition(two, c15);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c15));
+        Coordinate c16 = new Coordinate(13,9);
+        one.hitPosition(two, c16);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c16));
+        Coordinate c17 = new Coordinate(14,9);
+        one.hitPosition(two, c17);
+        assertTrue(one.getDefaultBattlePlane().hitPosition().containsKey(c17));
+        assertFalse(two.getBattlefield().containsShip(sp6));
+        assertFalse(two.containsShip(sp6));
+        //Test failure hit
+        Coordinate c18 = new Coordinate(1,1);
+        assertThrows(IllegalArgumentException.class, () -> one.hitPosition(two, c18));
+    }
 }
