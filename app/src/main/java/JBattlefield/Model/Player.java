@@ -119,4 +119,13 @@ public class Player implements Gamer {
         }
         return false;
     }
+     
+     /**
+     * This methods checks if there is 
+     * ships inside the Player list Ships.
+     * @return true if there is one or more Ships, false otherwise.
+     */
+    public boolean areShipsPresents(){
+        return !this.ships.isEmpty();
+    }
 }
