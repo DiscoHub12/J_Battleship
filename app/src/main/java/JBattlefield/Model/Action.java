@@ -14,14 +14,28 @@ public class Action implements I_Action{
         this.playerAction = player;
     }
 
-    @Override
+   @Override
     public void hitPosition(Player player, Coordinate tmp) {
         Objects.requireNonNull(player);
         Objects.requireNonNull(tmp);
+        if(!player.areShipsPresents())
+            throw new IllegalArgumentException("The game are finished. Player: " + player.getName() + "lost the Battle.");
         if(this.playerAction.getDefaultBattlePlane().hitPosition().containsKey(tmp))
             throw new IllegalArgumentException("Position already fired.");
-        int count = 0;
         Ship s = player.getBattlefield().getShipInThisPosition(tmp);
+        partsRemoving(s, player, tmp);
+    }
+
+    private boolean checkShipDied(Player player, Coordinate tmp){
+        Ship s = player.getBattlefield().getShipInThisPosition(tmp);
+        if(s != null) {
+            return !player.getBattlefield().containsShip(s);
+        }
+        return false;
+    }
+
+    private void partsRemoving(Ship s, Player player, Coordinate tmp){
+        int count = 0;
         if(s != null){
             player.getBattlefield().deleteOnePosition(tmp);
             count = 1;
@@ -33,13 +47,5 @@ public class Action implements I_Action{
                 player.removeShip(s);
             }
         }
-    }
-
-    private boolean checkShipDied(Player player, Coordinate tmp){
-        Ship s = player.getBattlefield().getShipInThisPosition(tmp);
-        if(s != null) {
-            return !player.getBattlefield().containsShip(s);
-        }
-        return false;
     }
 }
